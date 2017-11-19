@@ -1,0 +1,21 @@
+@layout('main')
+
+@section('content')
+  <a href="/posts">Go Back</a>
+  <hr>
+  <h1>Edit Post</h1>
+  <form action="{{ '/posts/' + post.id + '?_method=PUT' }}" method="POST">
+    {{ csrfField() }}
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" name="title" class="form-control" placeholder="Title" value="{{ post.title }}">
+      {{ elIf('<span class="text-danger">$self</span>', getErrorFor('title'), hasErrorFor('title')) }}
+    </div>
+    <div class="form-group">
+      <label>Body</label>
+      <textarea name="body" class="form-control" placeholder="Body">{{ post.body }}</textarea>
+      {{ elIf('<span class="text-danger">$self</span>', getErrorFor('body'), hasErrorFor('body')) }}
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+@endsection
